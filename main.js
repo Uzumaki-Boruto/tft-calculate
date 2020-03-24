@@ -86,9 +86,10 @@ app.controller('generalCtrl', ['$scope', '$http', function ($scope, $http) {
         "Vệ binh tinh trùng", "Cơ giáp", "Hắc tinh", "Thời không", "Hư không"
     ];
     $scope.baseData = [];
-    
+
     $http.get("data.json").then(response => {
         $scope.baseData = response;
+        console.log($scope.baseData);
     });
 
     $scope.calculateData = [];
@@ -155,5 +156,4 @@ app.controller('generalCtrl', ['$scope', '$http', function ($scope, $http) {
     }
 
     $scope.getTierClass = (tier) => "tier-" + (tier + 1);
-    console.log(JSON.stringify($scope.baseData));
 }]);
