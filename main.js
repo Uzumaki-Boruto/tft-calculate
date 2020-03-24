@@ -154,4 +154,5 @@ app.controller('generalCtrl', ['$scope', '$http', function ($scope, $http) {
     }
 
     $scope.getTierClass = (tier) => "tier-" + (tier + 1);
+    $scope.getTierTextClass = (tier) => "tier-" + tier + "-text";
 }]);

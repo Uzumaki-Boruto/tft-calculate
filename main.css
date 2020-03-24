@@ -47,6 +47,26 @@ SOFTWARE. */
     background-color: #b89d27;
 }
 
+.tier-1-text {
+    color: #616161;
+}
+
+.tier-2-text {
+    color: #156831;
+}
+
+.tier-3-text {
+    color: #12407c;
+}
+
+.tier-4-text {
+    color: #893088;
+}
+
+.tier-5-text {
+    color: #b89d27;
+}
+
 .champ {
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     width: 100px;

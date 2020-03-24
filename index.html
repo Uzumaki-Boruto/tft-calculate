@@ -50,6 +50,11 @@ SOFTWARE. -->
                         <div class="form-group list-group-item">
                             <div class="btn-toolbar" role="toolbar">
                                 <h4 class="mx-3">Player: Cấp {{ player.level }}</h4>
+                                <div>
+                                    <span class="text-light ml-2" ng-repeat="data in tierPercent[player.level] track by $index" ng-class="getTierClass($index)">
+                                        {{ data }}%
+                                    </span>
+                                </div>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" ng-click="levelUp()">
                                         <i class="fas fa-plus"></i>
