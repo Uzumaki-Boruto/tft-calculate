@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>TFT Cao Thủ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body ng-app="TFT">
+    <div class="container-fluid" ng-controller="generalCtrl">
+        <h2 class="text-center">TFT</h2>
+        <div class="col-10 mx-auto">
+            <div class="row">
+                <div class="col-xl-2 col-lg-4">
+                    <h1 class="my-4">Filter</h1>
+                    <div class="list-group">
+                        <div class="form-group list-group-item">
+                            <div class="btn-toolbar" role="toolbar">
+                                <h4 class="mx-3">Player: Cấp {{ player.level }}</h4>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary" ng-click="levelUp()">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" ng-click="levelDown()">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group list-group-item">
+                            <label class="form-control-label">Tìm champ: </label>
+                            <input class="form-control" type="text" ng-model="tftFilter" placeholder="Nhập tên tướng">
+                        </div>
+                        <div class="form-group list-group-item">
+                            <label class="form-control-label">Tier: </label>
+                            <select class="custom-select border border-info" ng-model="tftFilter.tier"
+                                ng-options="x for x in tierList"></select>
+                        </div>
+                        <!-- <div class="form-group list-group-item">
+                            <label class="form-control-label">Tộc: </label>
+                            <select class="custom-select border border-info" ng-model="tftFilter.class"
+                                ng-options="x for x in classes"></select>
+                        </div>
+                        <div class="form-group list-group-item">
+                            <label class="form-control-label">Hệ: </label>
+                            <select class="custom-select border border-info" ng-model="tftFilter.origin"
+                                ng-options="x for x in origins"></select>
+                        </div> -->
+                        <div class="list-group-item">
+                            <button class="btn btn-primary" ng-click="tftFilter = undefined;">Xoá bộ lọc</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-10 col-lg-8">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-8 my-2" ng-repeat="data in baseData">
+                            <div class="champ-container text-light" ng-class="getTierClass(data.tier)">
+                                <div class="champ-text">
+                                    {{ data.champName }} - {{ getCount(data.champName) }} -
+                                    {{ getPercent(data) | number:2 }}%
+                                </div>
+                                <div class="class-text">
+                                    {{ data.class }}
+                                </div>
+                                <div class="origin-text">
+                                    {{ data.origin }}
+                                </div>
+                                <div class="btn-group-vertical button-action">
+                                    <button type="button" class="btn btn-outline-warning"
+                                        ng-click="plusChampion(data.champName)">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-warning"
+                                        ng-click="minusChampion(data.champName)">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </button>
+                                </div>
+                                <img src="https://cdn.mobalytics.gg/stable/tft/champion/icon/set3/{{data.champName | champFilter}}.png"
+                                    class="champ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
