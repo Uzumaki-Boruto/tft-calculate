@@ -88,8 +88,7 @@ app.controller('generalCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.baseData = [];
 
     $http.get("data.json").then(response => {
-        $scope.baseData = response;
-        console.log($scope.baseData);
+        $scope.baseData = response.data;
     });
 
     $scope.calculateData = [];
