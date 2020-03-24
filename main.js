@@ -141,18 +141,29 @@ app.controller('generalCtrl', ['$scope', '$http', function ($scope, $http) {
         }
         const perchamp = percentOfTier / ($scope.tierChampCount[tier] * tierCount - totalChampCurrent);
         return perchamp * champRemainCount;
-    }
+    };
+
+    $scope.getRemaining = (champ) => {
+        const tierCount = $scope.tierCount[champ.tier];
+        return tierCount - $scope.calculateData.find(x => x.champName == champ.champName).count;
+    };
 
     $scope.levelUp = () => {
         if ($scope.player.level == 9) return;
         $scope.player.level++;
-    }
+    };
 
     $scope.levelDown = () => {
         if ($scope.player.level == 1) return;
         $scope.player.level--;
-    }
+    };
 
     $scope.getTierClass = (tier) => "tier-" + (tier + 1);
     $scope.getTierTextClass = (tier) => "tier-" + tier + "-text";
+    $scope.getMediaGrid = () => {
+        if ($(window).width() > 1600) {
+            return "col-xl-3";
+        }
+        return "col-xl-4";
+    };
 }]);

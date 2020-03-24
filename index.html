@@ -41,8 +41,12 @@ SOFTWARE. -->
 
 <body ng-app="TFT">
     <div class="container-fluid" ng-controller="generalCtrl">
-        <h2 class="text-center">TFT</h2>
-        <div class="col-10 mx-auto">
+        <h2 class="text-center">TFT tính toán xác suất roll tướng</h2>
+        <div class="text-center">
+            Sản phẩm được làm bởi <a href="https://www.facebook.com/Boruto.Uzumaki.8299">Thông Hoàng</a> và <a
+                href="https://www.facebook.com/phuc25.08">Cao Thiện Phúc</a>
+        </div>
+        <div class="col-xl-10 col-lg-12 mx-auto">
             <div class="row">
                 <div class="col-xl-2 col-lg-4">
                     <h1 class="my-4">Filter</h1>
@@ -51,7 +55,9 @@ SOFTWARE. -->
                             <div class="btn-toolbar" role="toolbar">
                                 <h4 class="mx-3">Player: Cấp {{ player.level }}</h4>
                                 <div>
-                                    <span class="text-light ml-2" ng-repeat="data in tierPercent[player.level] track by $index" ng-class="getTierClass($index)">
+                                    <span class="text-light ml-2"
+                                        ng-repeat="data in tierPercent[player.level - 1] track by $index"
+                                        ng-class="getTierClass($index)">
                                         {{ data }}%
                                     </span>
                                 </div>
@@ -67,7 +73,8 @@ SOFTWARE. -->
                         </div>
                         <div class="form-group list-group-item">
                             <label class="form-control-label">Tìm champ: </label>
-                            <input class="form-control" type="text" ng-model="tftFilter.name" placeholder="Nhập tên tướng">
+                            <input class="form-control" type="text" ng-model="tftFilter.name"
+                                placeholder="Nhập tên tướng">
                         </div>
                         <div class="form-group list-group-item">
                             <label class="form-control-label">Tier: </label>
@@ -91,7 +98,8 @@ SOFTWARE. -->
                 </div>
                 <div class="col-xl-10 col-lg-8">
                     <div class="row">
-                        <div class="col-xl-3 col-lg-8 my-2" ng-repeat="data in baseData | champFilter:tftFilter">
+                        <div class="col-lg-8 my-2" ng-repeat="data in baseData | champFilter:tftFilter"
+                            ng-class="getMediaGrid()">
                             <div class="champ-container text-light" ng-class="getTierClass(data.tier)">
                                 <div class="champ-text">
                                     {{ data.champName }} - {{ getCount(data.champName) }} -
@@ -102,6 +110,9 @@ SOFTWARE. -->
                                 </div>
                                 <div class="origin-text">
                                     {{ data.origin }}
+                                </div>
+                                <div class="remain-text">
+                                    Còn lại: {{ getRemaining(data) }}
                                 </div>
                                 <div class="btn-group-vertical button-action">
                                     <button type="button" class="btn btn-outline-warning"

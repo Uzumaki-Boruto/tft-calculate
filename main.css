@@ -90,6 +90,11 @@ SOFTWARE. */
     position: absolute;
 }
 
+.remain-text {
+    transform: translateX(110px) translateY(75px);
+    position: absolute;
+}
+
 .button-action {
     transform: translateX(310px);
     position: absolute;
