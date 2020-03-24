@@ -1,37 +1,51 @@
 var app = angular.module('TFT', []);
 
-app.filter('champFilter', () => {
+app.filter('resourceFilter', () => {
     return function (x) {
         return x.replace(" ", "-").replace("'", "").toLowerCase();
     };
 });
 
 app.filter('champFilter', () => {
-    return function (model, filterModel) {
-        if (!filterModel) return model;
-        
+    return function (models, filterModel) {
+        if (!filterModel || angular.equals(filterModel, {})) return models;
+        if (filterModel.name) {
+            return models.filter(x => {
+                return x.champName.toLowerCase().includes(filterModel.name.toLowerCase())
+            });
+        }
+        if (filterModel.tier) {
+            const tierList = [
+                "1 Vàng", "2 Vàng", "3 Vàng", "4 Vàng", "5 Vàng"
+            ];
+            const tier = tierList.indexOf(filterModel.tier);
+            return models.filter(x => x.tier == tier);
+        }
+        return models;
     };
 });
 
 app.controller('generalCtrl', ['$scope', '$window', '$filter', function ($scope, $window, $filter) {
 
+    $scope.tftFilter = {};
+
     $scope.tierList = [
         "1 Vàng", "2 Vàng", "3 Vàng", "4 Vàng", "5 Vàng"
     ];
 
-    $scope.tierCount = [ 29, 22, 16, 12, 10 ];
-    $scope.tierChampCount = [ 12, 12, 12, 9, 7 ];
-    
+    $scope.tierCount = [29, 22, 16, 12, 10];
+    $scope.tierChampCount = [12, 12, 12, 9, 7];
+
     $scope.tierPercent = [
-        [ 100, 0, 0, 0, 0 ],
-        [ 100, 0, 0, 0, 0 ],
-        [ 70, 30, 0, 0, 0 ],
-        [ 50, 35, 15, 0, 0],
-        [ 35, 40, 20, 5, 0],
-        [ 20, 35, 35, 10 ,0 ],
-        [ 14, 30, 40, 15, 1 ],
-        [ 12, 20 ,35, 25, 7 ],
-        [ 10, 15, 25, 35, 15 ]
+        [100, 0, 0, 0, 0],
+        [100, 0, 0, 0, 0],
+        [70, 30, 0, 0, 0],
+        [50, 35, 15, 0, 0],
+        [35, 40, 20, 5, 0],
+        [20, 35, 35, 10, 0],
+        [14, 30, 40, 15, 1],
+        [12, 20, 35, 25, 7],
+        [10, 15, 25, 35, 15]
     ]
 
     $scope.classes = [
@@ -380,7 +394,7 @@ app.controller('generalCtrl', ['$scope', '$window', '$filter', function ($scope,
         const champ = $scope.calculateData.find(x => x.champName == champName);
         if (champ == undefined || champ.count == $scope.tierCount[champ.tier]) {
             return;
-        }    
+        }
         $scope.calculateData.find(x => x.champName == champName).count++;
     };
 
@@ -399,7 +413,7 @@ app.controller('generalCtrl', ['$scope', '$window', '$filter', function ($scope,
     $scope.getPercent = (champ) => {
         const tier = champ.tier;
         const tierCount = $scope.tierCount[tier];
-        const champRemainCount =tierCount - $scope.calculateData.find(x => x.champName == champ.champName).count;
+        const champRemainCount = tierCount - $scope.calculateData.find(x => x.champName == champ.champName).count;
         if (champRemainCount <= 0) {
             return 0;
         }
@@ -426,5 +440,4 @@ app.controller('generalCtrl', ['$scope', '$window', '$filter', function ($scope,
     }
 
     $scope.getTierClass = (tier) => "tier-" + (tier + 1);
-    console.log($scope.baseData[0]);
 }]);
