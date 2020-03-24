@@ -89,20 +89,19 @@ app.controller('generalCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $http.get("data.json").then(response => {
         $scope.baseData = response.data;
+        for (const champ of $scope.baseData) {
+            $scope.calculateData.push({
+                count: 0,
+                champName: champ.champName,
+                tier: champ.tier
+            });
+        }
     });
 
     $scope.calculateData = [];
 
     $scope.player = {
         level: 2
-    }
-
-    for (const champ of $scope.baseData) {
-        $scope.calculateData.push({
-            count: 0,
-            champName: champ.champName,
-            tier: champ.tier
-        });
     }
 
     $scope.plusChampion = (champName) => {
